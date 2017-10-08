@@ -43,6 +43,13 @@ public class CompanyResourceFunctionalTesting {
         assertEquals("{\"id\":1,\"name\":\"company1\"}", new HttpClientService().httpRequest(request).getBody());
     }
     
+    @Test(expected = HttpException.class)
+    public void testReadCompanyCompanyIdNotFound() {
+        HttpRequest request = new HttpRequestBuilder().method(HttpMethod.GET).path("companies").path("/{id}")
+                .expandPath("2").build();
+        new HttpClientService().httpRequest(request);
+    }
+    
     @Test
     public void testCompanyList() {
         this.createCompany();

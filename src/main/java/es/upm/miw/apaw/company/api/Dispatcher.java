@@ -13,11 +13,51 @@ public class Dispatcher {
     }
 
     public void doGet(HttpRequest request, HttpResponse response) {
-        responseError(response, new RequestInvalidException(request.getPath()));
+        
+        try {
+            
+            if (request.isEqualsPath("companies")) {
+                response.setBody("[{\"id\":1,\"name\":\"company1\"}]");
+            }else if ( request.isEqualsPath("companies" + "/{id}") ) {
+                
+                if ( Integer.valueOf(request.paths()[1]) == 1 ) {
+                    response.setBody("{\"id\":1,\"name\":\"company1\"}");
+                }else {
+                    throw new Exception();
+                }
+            } else {
+                throw new RequestInvalidException(request.getPath());
+            }
+            
+
+        } catch (Exception e) {
+            responseError(response, e);
+        }
+
     }
 
     public void doPost(HttpRequest request, HttpResponse response) {
-        responseError(response, new RequestInvalidException(request.getPath()));
+        try {
+            
+            if ( request.isEqualsPath("companies") ) {
+                
+                if ( request.getBody().isEmpty() || request.getBody() == null ) {
+                    throw new Exception();
+                }else {
+                    response.setStatus(HttpStatus.CREATED);
+                }                
+                
+            
+            }else {
+                throw new RequestInvalidException(request.getPath());
+            }
+
+        } catch (Exception e) {
+            responseError(response, e);
+        }
+        
+        
+        
     }
 
     public void doPut(HttpRequest request, HttpResponse response) {
@@ -29,7 +69,21 @@ public class Dispatcher {
     }
 
     public void doDelete(HttpRequest request, HttpResponse response) {
-        responseError(response, new RequestInvalidException(request.getPath()));
+        try {
+            
+            if ( request.isEqualsPath("companies" + "/{id}") ){
+                
+                if ( Integer.valueOf(request.paths()[1]) != 1 ) {
+                    throw new Exception();
+                }
+                
+            }else {
+                throw new RequestInvalidException(request.getPath());
+            }
+            
+        }catch (Exception e) {
+            responseError(response, new RequestInvalidException(request.getPath()));
+        }   
     }
 
 }
