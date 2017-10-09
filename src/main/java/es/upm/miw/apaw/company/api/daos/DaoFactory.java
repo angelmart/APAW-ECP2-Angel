@@ -14,6 +14,8 @@ public abstract class DaoFactory {
     }
     
     public abstract CompanyDao getCompanyDao();
+    
+    public abstract StaffDao getStaffDao();
 
 
 
