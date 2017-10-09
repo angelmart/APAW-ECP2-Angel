@@ -10,11 +10,11 @@ notifications:
     recipients:
     - githubUniversity@gmail.com
 script:
+# Unit Test & Integration Test
+- mvn verify --settings settings.xml
 # Calidad codigo: Sonarcloud
 - mvn clean org.jacoco:jacoco-maven-plugin:prepare-agent verify --settings settings.xml
 - mvn sonar:sonar -Dsonar.organization=angelmart-github -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=$miw --settings settings.xml
-# Unit Test & Integration Test
-- mvn verify --settings settings.xml
 # Deploy & Functional Testing
 - if [ $TRAVIS_TEST_RESULT == 0 ];
      then  mvn verify -Ppreproduction --settings settings.xml; 
