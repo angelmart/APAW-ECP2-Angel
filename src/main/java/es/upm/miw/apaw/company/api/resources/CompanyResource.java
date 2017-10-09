@@ -28,7 +28,7 @@ public class CompanyResource {
         Optional<CompanyDto> optional = new CompanyController().readCompany(companyId);
         return optional.orElseThrow(() -> new CompanyIdNotFoundException(Integer.toString(companyId)));
     }
-    
+
     private void validateName(String name) throws CompanyNameInvalidException {
         if (name == null || name.isEmpty()) {
             throw new CompanyNameInvalidException(name);
