@@ -1,6 +1,7 @@
 package es.upm.miw.apaw.company.api;
 
 import es.upm.miw.apaw.company.api.resources.CompanyResource;
+import es.upm.miw.apaw.company.api.resources.StaffResource;
 import es.upm.miw.apaw.company.api.resources.exceptions.RequestInvalidException;
 import es.upm.miw.apaw.company.http.HttpRequest;
 import es.upm.miw.apaw.company.http.HttpResponse;
@@ -9,6 +10,8 @@ import es.upm.miw.apaw.company.http.HttpStatus;
 public class Dispatcher {
     
     private CompanyResource companyResource = new CompanyResource();
+    
+    private StaffResource staffResource = new StaffResource();
 
     private void responseError(HttpResponse response, Exception e) {
         response.setBody("{\"error\":\"" + e + "\"}");
@@ -24,13 +27,9 @@ public class Dispatcher {
             }else if ( request.isEqualsPath(CompanyResource.COMPANIES + CompanyResource.ID) ) {
                 response.setBody(companyResource.readCompany(Integer.valueOf(request.paths()[1])).toString());
             } else if (request.isEqualsPath("staffs")) {
-                response.setBody("[{\"name\":\"Pepito\"}, {\"name\":\"Federico\"}]");
+                response.setBody(staffResource.staffList().toString());
             }else if ( request.isEqualsPath("staffs" + "/{id}" ) ){
-                if ( Integer.valueOf(request.paths()[1]) != 1 ) {
-                    throw new Exception();
-                }else {
-                    response.setBody("{\"name\":\"Pepito\"}");
-                }
+                response.setBody(staffResource.readStaff(Integer.valueOf(request.paths()[1])).toString());
             } else {
                 throw new RequestInvalidException(request.getPath());
             }
@@ -50,9 +49,7 @@ public class Dispatcher {
                 response.setStatus(HttpStatus.CREATED);
                 
             } else if (request.isEqualsPath("staffs")) {
-                if ( request.getBody().isEmpty() || request.getBody() == null ) {
-                    throw new Exception();
-                }
+                staffResource.createStaff(request.getBody());
                 response.setStatus(HttpStatus.CREATED);
 
             }else {
