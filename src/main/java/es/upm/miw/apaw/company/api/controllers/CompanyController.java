@@ -7,7 +7,6 @@ import java.util.Optional;
 import es.upm.miw.apaw.company.api.daos.DaoFactory;
 import es.upm.miw.apaw.company.api.dtos.CompanyDto;
 import es.upm.miw.apaw.company.api.entities.Company;
-import es.upm.miw.apaw.company.api.resources.exceptions.CompanyIdNotFoundException;
 
 public class CompanyController {
     
