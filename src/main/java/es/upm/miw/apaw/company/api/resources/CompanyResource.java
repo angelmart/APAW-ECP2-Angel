@@ -36,7 +36,7 @@ public class CompanyResource {
     }
 
     public void deleteCompany(int companyId) throws CompanyIdNotFoundException{
-        if ( new CompanyController().deleteCompany(companyId) == false ) {
+        if (!(new CompanyController().deleteCompany(companyId)) ) {
             throw new CompanyIdNotFoundException(Integer.toString(companyId));
         }
         

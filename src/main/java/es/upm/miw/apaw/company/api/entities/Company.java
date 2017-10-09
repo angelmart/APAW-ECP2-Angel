@@ -14,7 +14,7 @@ public class Company {
     public Company( String companyName ) {
         this.id = 0;
         this.name = companyName;
-        this.staffs = new ArrayList<Staff>();
+        this.staffs = new ArrayList<>();
     }
     
     public int getId() {
