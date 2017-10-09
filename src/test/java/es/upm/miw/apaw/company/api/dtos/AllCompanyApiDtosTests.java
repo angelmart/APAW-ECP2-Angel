@@ -6,7 +6,8 @@ import org.junit.runners.Suite.SuiteClasses;
 
 @RunWith(Suite.class)
 @SuiteClasses({
-    CompanyDtoTest.class
+    CompanyDtoTest.class,
+    StaffDtoTest.class
 })
 public class AllCompanyApiDtosTests {
 
