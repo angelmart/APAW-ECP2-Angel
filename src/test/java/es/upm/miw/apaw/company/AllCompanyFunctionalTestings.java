@@ -6,7 +6,8 @@ import org.junit.runners.Suite.SuiteClasses;
 
 @RunWith(Suite.class)
 @SuiteClasses({
-    CompanyResourceFunctionalTesting.class
+    CompanyResourceFunctionalTesting.class,
+    StaffResourceFunctionalTesting.class
 })
 public class AllCompanyFunctionalTestings {
 
