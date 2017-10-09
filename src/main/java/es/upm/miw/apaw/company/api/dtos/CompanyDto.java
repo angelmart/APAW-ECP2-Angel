@@ -1,5 +1,7 @@
 package es.upm.miw.apaw.company.api.dtos;
 
+import es.upm.miw.apaw.company.api.entities.Company;
+
 public class CompanyDto {
     
     private int id;
@@ -10,7 +12,12 @@ public class CompanyDto {
         this.id = id;
         this.name = name;
     }
-    
+
+    public CompanyDto(Company company) {
+        this.id = company.getId();
+        this.name = company.getName();
+    }
+
     public int getId() {
         return id;
     }
