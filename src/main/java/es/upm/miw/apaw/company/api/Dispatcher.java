@@ -26,9 +26,9 @@ public class Dispatcher {
                 response.setBody(companyResource.companyList().toString());
             }else if ( request.isEqualsPath(CompanyResource.COMPANIES + CompanyResource.ID) ) {
                 response.setBody(companyResource.readCompany(Integer.valueOf(request.paths()[1])).toString());
-            } else if (request.isEqualsPath("staffs")) {
+            } else if (request.isEqualsPath(StaffResource.STAFFS)) {
                 response.setBody(staffResource.staffList().toString());
-            }else if ( request.isEqualsPath("staffs" + "/{id}" ) ){
+            }else if ( request.isEqualsPath(StaffResource.STAFFS + StaffResource.ID ) ){
                 response.setBody(staffResource.readStaff(Integer.valueOf(request.paths()[1])).toString());
             } else {
                 throw new RequestInvalidException(request.getPath());
@@ -48,7 +48,7 @@ public class Dispatcher {
                 companyResource.createCompany( request.getBody() );
                 response.setStatus(HttpStatus.CREATED);
                 
-            } else if (request.isEqualsPath("staffs")) {
+            } else if (request.isEqualsPath(StaffResource.STAFFS)) {
                 staffResource.createStaff(request.getBody());
                 response.setStatus(HttpStatus.CREATED);
 
