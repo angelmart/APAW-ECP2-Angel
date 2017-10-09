@@ -83,7 +83,7 @@ public class Dispatcher {
             }
             
         }catch (Exception e) {
-            responseError(response, new RequestInvalidException(request.getPath()));
+            responseError(response, e);
         }   
     }
 
