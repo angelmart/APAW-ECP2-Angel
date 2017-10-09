@@ -18,12 +18,21 @@ public class StaffResourceFunctionalTesting {
     
     @Rule
     public ExpectedException exception = ExpectedException.none();
-
-    private void createStaffs() {
+    
+    private void createStaffOne() {
         request = new HttpRequestBuilder().method(HttpMethod.POST).path("staffs").body("Pepito").build();
         new HttpClientService().httpRequest(request);
+    }
+    
+    private void createStaffTwo() {
         request = new HttpRequestBuilder().method(HttpMethod.POST).path("staffs").body("Federico").build();
         new HttpClientService().httpRequest(request);
+    }
+
+    private void createStaffs() {
+        this.createStaffOne();
+        this.createStaffTwo();
+        
     }
     
     @Test
@@ -46,10 +55,26 @@ public class StaffResourceFunctionalTesting {
     }
     
     @Test
+    public void testReadStaff() {
+        this.createStaffOne();
+        HttpRequest request = new HttpRequestBuilder().method(HttpMethod.GET).path("staffs").path("/{id}")
+                .expandPath("1").build();
+        assertEquals("{\"name\":\"Pepito\"}", new HttpClientService().httpRequest(request).getBody());
+    }
+    
+    @Test(expected = HttpException.class)
+    public void testReadStaffStaffIdNotFound() {
+        this.createStaffOne();
+        HttpRequest request = new HttpRequestBuilder().method(HttpMethod.GET).path("staffs").path("/{id}")
+                .expandPath("2").build();
+        new HttpClientService().httpRequest(request);
+    }
+    
+    @Test
     public void testStaffList() {
         this.createStaffs();
         request = new HttpRequestBuilder().method(HttpMethod.GET).path("staffs").build();
-        assertEquals("[{\"name\":Pepito}, {\"name\":Federico}]",
+        assertEquals("[{\"name\":\"Pepito\"}, {\"name\":\"Federico\"}]",
                 new HttpClientService().httpRequest(request).getBody());
     }
 
