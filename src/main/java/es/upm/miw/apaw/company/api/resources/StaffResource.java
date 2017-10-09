@@ -11,6 +11,8 @@ import es.upm.miw.apaw.company.api.resources.exceptions.StaffInvalidException;
 public class StaffResource {
     
     public static final String STAFFS = "staffs";
+    
+    public static final String ID = "/{id}";
 
     public void createStaff(String staffName) throws StaffInvalidException{
         this.validateName(staffName);
