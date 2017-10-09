@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import es.upm.miw.apaw.company.api.dtos.StaffDto;
+import es.upm.miw.apaw.company.api.resources.exceptions.StaffIdNotFoundException;
 import es.upm.miw.apaw.company.api.resources.exceptions.StaffInvalidException;
 
 public class StaffResource {
@@ -20,6 +21,14 @@ public class StaffResource {
         staffDtoList.add( new StaffDto( "Federico" ));
         
         return staffDtoList;
+    }
+    
+    public StaffDto readStaff(int staffId) throws StaffIdNotFoundException {
+        if ( staffId == 1 ) {
+            return new StaffDto("Pepito");
+        }else {
+            throw new StaffIdNotFoundException();
+        }
     }
     
     private void validateName(String name) throws StaffInvalidException {
